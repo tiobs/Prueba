@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,27 +9,36 @@
         /* 1. Corrección de la pantalla global */
         body {
             margin: 0;
-            padding: 40px 20px;        /* Espaciado generoso arriba, abajo y a los lados */
-            min-height: 100vh;         /* CAMBIO CLAVE: Permite que la pantalla crezca si hay mucho contenido */
+            padding: 40px 20px;
+            /* Espaciado generoso arriba, abajo y a los lados */
+            min-height: 100vh;
+            /* CAMBIO CLAVE: Permite que la pantalla crezca si hay mucho contenido */
             display: flex;
-            flex-direction: column;    /* Coloca todo en una sola columna vertical */
-            justify-content: flex-start; /* CAMBIO CLAVE: Alinea desde arriba para evitar cortes */
-            align-items: center;       /* Centra todo horizontalmente */
+            flex-direction: column;
+            /* Coloca todo en una sola columna vertical */
+            justify-content: flex-start;
+            /* CAMBIO CLAVE: Alinea desde arriba para evitar cortes */
+            align-items: center;
+            /* Centra todo horizontalmente */
             font-family: Arial, sans-serif;
-            background-color: #f4f6f9; /* Fondo gris para contrastar con las tarjetas blancas */
-            gap: 30px;                 /* Espacio controlado entre cada bloque */
+            background-color: #f4f6f9;
+            /* Fondo gris para contrastar con las tarjetas blancas */
+            gap: 30px;
+            /* Espacio controlado entre cada bloque */
         }
 
-        h1, h2 { 
-            color: #333; 
-            margin: 0; 
+        h1,
+        h2 {
+            color: #333;
+            margin: 0;
             text-align: center;
         }
 
         /* 2. Contenedor del Formulario */
         .mi-caja {
             width: 100%;
-            max-width: 350px;          /* Limita el ancho del formulario */
+            max-width: 350px;
+            /* Limita el ancho del formulario */
             background-color: white;
             padding: 25px;
             border-radius: 8px;
@@ -36,47 +46,49 @@
             display: flex;
             flex-direction: column;
             gap: 0px;
-            box-sizing: border-box;    /* Evita que el padding deforme el tamaño */
+            box-sizing: border-box;
+            /* Evita que el padding deforme el tamaño */
         }
 
-        label { 
-            font-weight: bold; 
-            font-size: 14px; 
-            color: #555; 
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #555;
         }
 
-        input { 
-            padding: 12px; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            font-size: 14px; 
-            outline: none; 
+        input {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
         }
 
-        input:focus { 
-            border-color: #0056b3; 
+        input:focus {
+            border-color: #0056b3;
         }
 
-        button { 
-            background-color: #0056b3; 
-            color: white; 
-            border: none; 
-            padding: 12px; 
-            border-radius: 4px; 
-            font-size: 16px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            margin-top: 10px; 
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
         }
 
-        button:hover { 
-            background-color: #003d82; 
+        button:hover {
+            background-color: #003d82;
         }
 
         /* 3. Contenedor de la Tabla */
         .contenedor-tabla {
             width: 100%;
-            max-width: 500px;          /* Ancho óptimo para Nombre y Teléfono */
+            max-width: 500px;
+            /* Ancho óptimo para Nombre y Teléfono */
             background-color: white;
             padding: 20px;
             border-radius: 8px;
@@ -84,24 +96,27 @@
             box-sizing: border-box;
         }
 
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        th, td { 
-            border: 1px solid #ddd; 
-            padding: 12px; 
-            text-align: left; 
-            font-size: 16px;           /* Letra estándar y legible */
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 16px;
+            /* Letra estándar y legible */
         }
 
-        th { 
-            background-color: #f4f4f4; 
-            color: #333; 
+        th {
+            background-color: #f4f4f4;
+            color: #333;
         }
     </style>
 </head>
+
 <body>
     <h1>Registro de Clientes</h1>
 
@@ -109,14 +124,14 @@
     <div class="mi-caja">
 
         <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" placeholder= "Escriba tu nombre">
+        <input type="text" id="nombre" placeholder="Escriba tu nombre">
         <br>
 
         <label for="telefono">Teléfono</label>
-        <input type="tel" id="telefono" placeholder= "Escriba tu numero">
+        <input type="tel" id="telefono" placeholder="Escriba tu numero">
         <br>
 
-        <button type="button">Registrar Cliente</button>
+        <button type="button" id="btn-registrar">Registrar Cliente</button>
     </div>
 
 
@@ -142,10 +157,66 @@
     </div>
 
     <script>
-    
-    
+        // 1. Esta es la lista global (Arreglo) donde guardaremos los JSON de cada cliente
+        const listaClientesJson = [];
 
+        // 2. Seleccionamos los elementos de la página
+        const boton = document.getElementById('btn-registrar');
+        const tabla = document.getElementById('cuerpo-tabla');
+        const celdaTotal = document.getElementById('total');
+        // 3. Escuchamos el evento de clic en el botón
+        boton.addEventListener('click', () => {
+            // Capturamos lo que el usuario escribió
+            const inputNombre = document.getElementById('nombre').value;
+            const inputTelefono = document.getElementById('telefono').value;
+
+            // Validación: Evitar campos vacíos
+            if (inputNombre.trim() === "" || inputTelefono.trim() === "") {
+                alert("Por favor, rellene ambos campos.");
+                return;
+            }
+
+            // 4. CREAMOS EL OBJETO TIPO JSON
+            // Estructuramos la información en un formato de clave-valor
+            const nuevoCliente = {
+                "nombre": inputNombre,
+                "telefono": inputTelefono
+            };
+
+            // 5. Lo guardamos en nuestra lista global
+            listaClientesJson.push(nuevoCliente);
+
+            // [Opcional] Ver en la consola cómo se va acumulando tu lista de JSONs
+            console.log("Lista de JSONs actual:", listaClientesJson);
+
+            // 6. LLAMAMOS A LA FUNCIÓN PARA LISTAR EN LA TABLA
+             actualizarTabla();
+
+            // 7. Limpiamos los inputs para un nuevo registro
+            document.getElementById('nombre').value = "";
+            document.getElementById('telefono').value = "";
+        });
+
+        function actualizarTabla() {
+            // Limpiamos el contenido viejo para que no se duplique
+            tabla.innerHTML = "";
+
+            // Recorremos la lista de objetos tipo JSON usando forEach
+            listaClientesJson.forEach(cliente => {
+                const fila = document.createElement('tr');
+
+                // Inyectamos los datos del JSON en las celdas 'td'
+                fila.innerHTML = `
+                    <td>${cliente.nombre}</td>
+                    <td>${cliente.telefono}</td>
+                `;
+
+                tabla.appendChild(fila);
+ celdaTotal.textContent = listaClientesJson.length;
+            });
+        }
     </script>
 
 </body>
+
 </html>
