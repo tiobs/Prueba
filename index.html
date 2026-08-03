@@ -4,33 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anthony</title>
-     <style>
+    <style>
+        /* 1. Corrección de la pantalla global */
         body {
             margin: 0;
-            height: 100vh;
+            padding: 40px 20px;        /* Espaciado generoso arriba, abajo y a los lados */
+            min-height: 100vh;         /* CAMBIO CLAVE: Permite que la pantalla crezca si hay mucho contenido */
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
+            flex-direction: column;    /* Coloca todo en una sola columna vertical */
+            justify-content: flex-start; /* CAMBIO CLAVE: Alinea desde arriba para evitar cortes */
+            align-items: center;       /* Centra todo horizontalmente */
             font-family: Arial, sans-serif;
+            background-color: #f4f6f9; /* Fondo gris para contrastar con las tarjetas blancas */
+            gap: 30px;                 /* Espacio controlado entre cada bloque */
         }
-        h1 { color: #333; margin-bottom: 20px; }
+
+        h1, h2 { 
+            color: #333; 
+            margin: 0; 
+            text-align: center;
+        }
+
+        /* 2. Contenedor del Formulario */
         .mi-caja {
-            width: 320px;
+            width: 100%;
+            max-width: 350px;          /* Limita el ancho del formulario */
             background-color: white;
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 0px;
+            box-sizing: border-box;    /* Evita que el padding deforme el tamaño */
         }
-        label { font-weight: bold; font-size: 14px; color: #555; }
-        input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; outline: none; }
-        input:focus { border-color: #007bff; }
-        button { background-color: #007bff; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        button:hover { background-color: #0056b3; }
+
+        label { 
+            font-weight: bold; 
+            font-size: 14px; 
+            color: #555; 
+        }
+
+        input { 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            font-size: 14px; 
+            outline: none; 
+        }
+
+        input:focus { 
+            border-color: #0056b3; 
+        }
+
+        button { 
+            background-color: #0056b3; 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 10px; 
+        }
+
+        button:hover { 
+            background-color: #003d82; 
+        }
+
+        /* 3. Contenedor de la Tabla */
+        .contenedor-tabla {
+            width: 100%;
+            max-width: 500px;          /* Ancho óptimo para Nombre y Teléfono */
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            font-size: 16px;           /* Letra estándar y legible */
+        }
+
+        th { 
+            background-color: #f4f4f4; 
+            color: #333; 
+        }
     </style>
 </head>
 <body>
@@ -40,37 +109,75 @@
     <div class="mi-caja">
         <label for="cedula">Cédula</label>
         <input type="text" id="cedula" placeholder= "Escriba tu cedula">
+        <br>
 
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" placeholder= "Escriba tu nombre">
+        <br>
 
         <label for="telefono">Teléfono</label>
         <input type="tel" id="telefono" placeholder= "Escriba tu numero">
+        <br>
 
         <label for="correo">Correo</label>
         <input type="email" id="correo" placeholder= "Escriba tu correo">
+        <br>
 
         <button type="button">Registrar Cliente</button>
     </div>
-     <script>
-        const boton = document.getElementById('btn-registrar');
 
-        boton.addEventListener('click', () => {
-            // 1. Extraemos el valor del cuadro de texto del nombre
-            const infoNombre = document.getElementById('nombre').value;
 
-            // 2. Validamos que el usuario no haya dejado el nombre vacío
-            if (infoNombre === "") {
-                alert("Por favor, ingresa tu nombre primero.");
-                return; 
-            }
+    <h1>Lista de nombres</h1>
 
-            // 3. Mostramos el saludo personalizado usando interpolación de texto (${})
-            alert(`Hola ${infoNombre}`);
+    <div class="contenedor-tabla">
+        <table>
+            <thead>
+                <tr>
+                    <!-- Solo estas dos columnas principales -->
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-tabla"></tbody>
+            <tfoot>
+                <tr>
+                    <td>Total de Contactos:</td>
+                    <td id="total">0</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        // Bancos de datos para realizar combinaciones al azar
+        const nombres = ["Alejandro", "Sofía", "Mateo", "Camila", "Lucas", "Mariana", "Diego", "Valeria", "Tomás", "Gabriela"];
+        const apellidos = ["Mendoza", "Silva", "Rodríguez", "Benítez", "Costa", "Gómez", "Paz", "Sánchez", "López", "Vargas"];
+
+        const tabla = document.getElementById('cuerpo-tabla');
+        const celdaTotal = document.getElementById('total');
+
+        // Bucle para generar exactamente 10 filas
+        for (let i = 0; i < 10; i++) {
+            // Combinación aleatoria de nombre y apellido
+            const nomRandom = nombres[Math.floor(Math.random() * nombres.length)];
+            const apeRandom = apellidos[Math.floor(Math.random() * apellidos.length)];
+            const nombreCompleto = `${nomRandom} ${apeRandom}`;
             
-            // Opcional: Limpiar el campo de texto tras saludar
-            document.getElementById('nombre').value = "";
-        });
+            // Texto fijo para el número telefónico
+            const telefono = "0000-0000";
+
+            // Creación e inyección de la fila con las dos celdas
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${nombreCompleto}</td>
+                <td>${telefono}</td>
+            `;
+            tabla.appendChild(fila);
+        }
+
+        // Mostrar la cantidad final en el pie de tabla
+        celdaTotal.textContent = "10";
     </script>
+
 </body>
 </html>
