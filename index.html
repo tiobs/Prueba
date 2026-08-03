@@ -3,9 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Anthony</title>
+     <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        h1 { color: #333; margin-bottom: 20px; }
+        .mi-caja {
+            width: 320px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        label { font-weight: bold; font-size: 14px; color: #555; }
+        input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; outline: none; }
+        input:focus { border-color: #007bff; }
+        button { background-color: #007bff; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        button:hover { background-color: #0056b3; }
+    </style>
 </head>
 <body>
-    
+    <h1>Registro de Clientes</h1>
+
+    <!-- Formulario estructurado con los 4 campos solicitados -->
+    <div class="mi-caja">
+        <label for="cedula">Cédula</label>
+        <input type="text" id="cedula" placeholder= "Escriba tu cedula">
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder= "Escriba tu nombre">
+
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" placeholder= "Escriba tu numero">
+
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" placeholder= "Escriba tu correo">
+
+        <button type="button">Registrar Cliente</button>
+    </div>
+     <script>
+        const boton = document.getElementById('btn-registrar');
+
+        boton.addEventListener('click', () => {
+            // 1. Extraemos el valor del cuadro de texto del nombre
+            const infoNombre = document.getElementById('nombre').value;
+
+            // 2. Validamos que el usuario no haya dejado el nombre vacío
+            if (infoNombre === "") {
+                alert("Por favor, ingresa tu nombre primero.");
+                return; 
+            }
+
+            // 3. Mostramos el saludo personalizado usando interpolación de texto (${})
+            alert(`Hola ${infoNombre}`);
+            
+            // Opcional: Limpiar el campo de texto tras saludar
+            document.getElementById('nombre').value = "";
+        });
+    </script>
 </body>
 </html>
