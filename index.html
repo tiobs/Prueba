@@ -107,9 +107,6 @@
 
     <!-- Formulario estructurado con los 4 campos solicitados -->
     <div class="mi-caja">
-        <label for="cedula">Cédula</label>
-        <input type="text" id="cedula" placeholder= "Escriba tu cedula">
-        <br>
 
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" placeholder= "Escriba tu nombre">
@@ -117,10 +114,6 @@
 
         <label for="telefono">Teléfono</label>
         <input type="tel" id="telefono" placeholder= "Escriba tu numero">
-        <br>
-
-        <label for="correo">Correo</label>
-        <input type="email" id="correo" placeholder= "Escriba tu correo">
         <br>
 
         <button type="button">Registrar Cliente</button>
@@ -149,34 +142,9 @@
     </div>
 
     <script>
-        // Bancos de datos para realizar combinaciones al azar
-        const nombres = ["Alejandro", "Sofía", "Mateo", "Camila", "Lucas", "Mariana", "Diego", "Valeria", "Tomás", "Gabriela"];
-        const apellidos = ["Mendoza", "Silva", "Rodríguez", "Benítez", "Costa", "Gómez", "Paz", "Sánchez", "López", "Vargas"];
+    
+    
 
-        const tabla = document.getElementById('cuerpo-tabla');
-        const celdaTotal = document.getElementById('total');
-
-        // Bucle para generar exactamente 10 filas
-        for (let i = 0; i < 10; i++) {
-            // Combinación aleatoria de nombre y apellido
-            const nomRandom = nombres[Math.floor(Math.random() * nombres.length)];
-            const apeRandom = apellidos[Math.floor(Math.random() * apellidos.length)];
-            const nombreCompleto = `${nomRandom} ${apeRandom}`;
-            
-            // Texto fijo para el número telefónico
-            const telefono = "0000-0000";
-
-            // Creación e inyección de la fila con las dos celdas
-            const fila = document.createElement('tr');
-            fila.innerHTML = `
-                <td>${nombreCompleto}</td>
-                <td>${telefono}</td>
-            `;
-            tabla.appendChild(fila);
-        }
-
-        // Mostrar la cantidad final en el pie de tabla
-        celdaTotal.textContent = "10";
     </script>
 
 </body>
